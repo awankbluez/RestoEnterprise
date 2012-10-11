@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+   <appender name="console" class="org.apache.log4j.ConsoleAppender">
+      <layout class="org.apache.log4j.PatternLayout">
+         <!-- Pattern to output the caller's file name and line number -->
+         <param name="ConversionPattern" value="%5p [%t] (%F:%L) - %m%n"/>
+      </layout>
+      <filter class="org.apache.log4j.varia.LevelRangeFilter">
+         <param name="levelMin" value="DEBUG" />
+         <param name="levelMax" value="FATAL" />
+      </filter>
+   </appender>
+
+   <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+      <param name="file" value="cbs.log"/>
+      <param name="MaxFileSize" value="1000KB"/>
+      <!-- Keep one backup file -->
+      <param name="MaxBackupIndex" value="1"/>
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%p %t %c - %m%n"/>
+      </layout>
+   </appender>
+
+<!--   <appender name="JDBCAppender" class="org.apache.log4j.jdbc.JDBCAppender">
+      <param name="URL" value="jdbc:postgresql://192.168.1.100:5433/DB_BROMO_BPR"/>
+      <param name="Driver" value="org.postgresql.Driver"/>
+      <param name="User" value="server"/>
+      <param name="Password" value="vinno"/>
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern"
+              value="INSERT INTO system_log (userid, systemdate, logger, level, message) VALUES ('%X{userid}', '%d{dd.MM.yyyy HH:mm:ss}', '%C', '%p', '%m')"
+            />
+      </layout>
+   </appender>-->
+
+   <logger name="com.managedBean">
+      <level value="INFO"/>
+      <!--<appender-ref ref="JDBCAppender"></appender-ref>-->
+   </logger>
+
+   <logger name="net.sf.jasperreports">
+      <level value="ERROR"/>
+   </logger>
+
+   <logger name="com.ocpsoft.pretty">
+      <level value="ERROR"/>
+   </logger>
+
+   <logger name="org.primefaces">
+      <level value="INFO"/>
+   </logger>
+
+   <logger name="org.jooq">
+      <level value="DEBUG"/>
+   </logger>
+
+   <logger name="com.mchange.v2">
+      <level value="WARN"/>
+   </logger>
+
+   <logger name="javax.faces">
+      <level value="DEBUG"/>
+   </logger>
+
+   <logger name="com.sun.faces">
+      <level value="DEBUG"/>
+   </logger>
+
+   <root>
+      <priority value ="INFO" />
+      <appender-ref ref="console" />
+      <appender-ref ref="fileAppender" />
+      <!--<appender-ref ref="JDBCAppender" />-->
+   </root>
+</log4j:configuration>
